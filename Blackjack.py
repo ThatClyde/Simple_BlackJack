@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # Blackjack.py - by Clyde Miller
 from random import shuffle
 from collections import deque
