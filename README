@@ -1,0 +1,5 @@
+Blackjack.py is the application in one file. 
+
+models.py, utils.py, and play.py are the same application 
+broken into multiple files for experience and readability.
+'python play.py' to run the program.
