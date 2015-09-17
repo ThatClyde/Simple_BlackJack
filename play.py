@@ -2,7 +2,7 @@
 # Blackjack.py - by Clyde Miller
 from decimal import Decimal
 from models import Card, Deck, Hand, Player
-from utils import clearscreen, get_bet, win_conditions
+from utils import clearscreen, get_bet, win_conditions, blackjack_test
 
 
 # Starting with a nice, clear screen:
@@ -79,25 +79,7 @@ while play_another != 'n':
     print("Your score is: {}".format(player_hand.score()))
 
     # handling being dealt a blackjack
-    if(player_hand.score() == 21) and (dealer_hand.score() < 21):
-        player.win(1.5)
-        print(
-            "You got a blackjack and just won ${:.2f}!".format(
-                player.bet *
-                Decimal(1.50)))
-    elif(player_hand.score() == 21) and (dealer_hand.score() == 21):
-        player.lose(1)
-        print("You got a blackjack!")
-        print("The dealer's hand is:{}".format(dealer_hand.show_cards()))
-        print("...but so did the dealer. So you lose. Bad luck happens.")
-    elif(player_hand.score() < 21) and (dealer_hand.score() == 21):
-        player.lose(1)
-        print(
-            "The dealer shows his hand {}: a blackjack. You lose ${}".format(
-                dealer_hand.show_cards(),
-                player.bet))
-
-    else:
+    if blackjack_test(player, player_hand, dealer_hand) == False:
         hit = 'y'
 
         # the player gets to hit or stay
@@ -152,5 +134,5 @@ else:
 if(player.money < 0):
     print("The dealer has taken your partner. You need to find a way to pay back the casino quickly.")
     print("Unseemly things are happening.")
-if(player.win_percentage > 65 and game.games > 20):
+if(player.win_percentage > 65 and player.games_played > 20):
     print("It looks like you might've been card counting. Don't make it too obvious or you'll get banned.")
